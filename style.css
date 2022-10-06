@@ -1,0 +1,77 @@
+  body {
+    background-color: rgb(90, 90, 90);
+    color: white;
+  }
+  
+  
+  #searchbar {
+    padding: 10px;
+    max-width: 300px;
+	  margin: 0 auto;
+    text-align: center;
+    
+  }
+
+  .nav-heading {
+    padding: 10px;
+  }
+
+  .list-class {
+    padding: 10px;
+  }
+
+  .main {
+    max-width: 600px;
+	  margin: 0 auto;
+    text-align: center;
+  }
+
+  #imgPoster {
+    height: 456px;
+    width: 300px;
+    box-shadow: 5px 5px 5px black;
+    transition-duration: 0.2s;
+  }
+
+  #imgPoster:hover {
+    transition-duration: 0.2s;
+    box-shadow: 8px 8px 8px black;
+  }
+
+  .itemListClass {
+    transition-duration: 0.2s;
+    max-width: 300px;
+    height: auto;
+    box-shadow: 5px 5px 5px black;
+    margin: 10px 20px 60px 0px;
+  }
+
+  .itemListClass:hover {
+    transition-duration: 0.2s;
+    box-shadow: 8px 8px 8px black;
+  }
+
+  .plot {
+    padding-top: 20px;
+    max-width: 300px;
+	  margin: 0 auto;
+    text-align: center;
+  }
+  
+  #movieList {
+    margin-left: 20px;
+  }
+  
+  #Director {
+    padding-top: 20px;
+  }
+
+  #Starring {
+    padding-top: 10px;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .menu {
+    margin-right: 10px;
+  }
