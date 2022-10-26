@@ -1,4 +1,4 @@
-const imdbKEY = '';
+const imdbKEY = 'k_6t5odul7';
 
 // CLEARS SEARCH BAR (CHROME ONLY)
 window.onbeforeunload = function(){
@@ -61,7 +61,7 @@ async function suggestion() {
   document.getElementById('Poster').innerHTML = imageURL;
   document.getElementById("loadingText").innerHTML = null;
 
-  urlVideo = `https://imdb-api.com/en/API/YouTubeTrailer/${imdbKEY}/${data.results[0].id}`
+  urlVideo = `https://imdb-api.com/en/API/YouTubeTrailer/${imdbKEY}/${data.results[1].id}`
   const responseVideo = await fetch(urlVideo);
   const dataVideo = await responseVideo.json();
   embed = dataVideo.videoUrl
@@ -83,6 +83,7 @@ async function button() {
     clearTagsSearch();
     clearTagsList();
     document.getElementById("loadingText").innerHTML = "";
+    getListDataMostPopularMovies();
     
   } else if (input !== "") {
       var url = `https://imdb-api.com/en/API/SearchMovie/${imdbKEY}/${input}`;
@@ -137,7 +138,7 @@ async function button() {
 
 // CLEARS ALL CONTENT FROM ANY GETLIST FUNCTION
 function clearTagsList() {
-  const removeValues = ["movieList", "loadingText"];
+  const removeValues = ["movieList1", "movieList2", "loadingText"];
     for (let i = 0; i < removeValues.length; i++) {
         document.getElementById(removeValues[i]).innerHTML = null;
   }
@@ -145,7 +146,7 @@ function clearTagsList() {
 
 // CLEARS ALL CONTENT FROM SEARCH FUNCTION
 function clearTagsSearch() {
-  const removeValues = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors", "Suggested", "Embed"];
+  const removeValues = ["Poster", "Plot", "loadingText", "Title", "Title2", "Director", "Starring", "Actors", "Suggested", "Embed"];
     for (let i = 0; i < removeValues.length; i++) {
         document.getElementById(removeValues[i]).innerHTML = null;
   }
@@ -163,15 +164,13 @@ async function getListDataTop250Movies() {
     clearTagsSearch();
     const response = await fetch(`https://imdb-api.com/en/API/Top250Movies/${imdbKEY}`);
     const data = await response.json();
-    
-    var list = document.getElementById("movieList");
+    var images = '';
+    var list = document.getElementById("movieList1");
     for (var i = 0; i < data.items.length; i++) {
       listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
-      var div = document.createElement("div");
-      div.innerHTML = `${data.items[i].rank}. ${data.items[i].title}<br><a href="${listURL}" target="_blank"><img id="topMovies" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
-     
-      list.appendChild(div);
-  }
+      images += `<a href="${listURL}" target="_blank"><img id="top250TV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
+  } 
+    list.innerHTML = images;
     clearTagsSearch();
     document.getElementById("Title").innerHTML = 'Top 250 Movies of All Time';
     usage();
@@ -183,14 +182,13 @@ async function getListDataInTheatres() {
     clearTagsSearch();
     const response = await fetch(`https://imdb-api.com/en/API/InTheaters/${imdbKEY}`);
     const data = await response.json();
-
-    var list = document.getElementById("movieList");
+    var images = '';
+    var list = document.getElementById("movieList1");
     for (var i = 0; i < data.items.length; i++) {
       listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
-      var div = document.createElement("div");
-      div.innerHTML = `${data.items[i].title}<br><a href="${listURL}" target="_blank"><img id="inTheatres" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
-      list.appendChild(div);
-  }
+      images += `<a href="${listURL}" target="_blank"><img id="top250TV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
+  } 
+    list.innerHTML = images;
     clearTagsSearch();
     document.getElementById("Title").innerHTML = 'In Theatres Now';
     usage();
@@ -198,75 +196,56 @@ async function getListDataInTheatres() {
 
 // MOST POPULAR MOVIES
 async function getListDataMostPopularMovies() {
-    clearTagsList();
-    clearTagsSearch();
-    const response = await fetch(`https://imdb-api.com/en/API/MostPopularMovies/${imdbKEY}`);
-    const data = await response.json();
-    
-    var list = document.getElementById("movieList");
-    for (var i = 0; i < data.items.length; i++) {
-      listURL = `https://www.imdb.com/title/${data.items[i].id}/`
-      var div = document.createElement("div");
-      div.innerHTML = `${data.items[i].title}<br><a href="${listURL}" target="_blank"><img id="mostPopularMovies" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
-      list.appendChild(div);
-  } 
-    clearTagsSearch();
-    document.getElementById("Title").innerHTML = 'Most Popular Movies';
-    usage();
+  clearTagsList();
+  clearTagsSearch();
+  const response = await fetch(`https://imdb-api.com/en/API/MostPopularMovies/${imdbKEY}`);
+  const data = await response.json();
+  var images = '';
+  var list = document.getElementById("movieList1");
+  for (var i = 0; i < data.items.length; i++) {
+    listURL = `https://www.imdb.com/title/${data.items[i].id}/`
+    images += `<a href="${listURL}" target="_blank"><img id="mostPopularMovies" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
+} 
+  list.innerHTML = images;
+  clearTagsSearch();
+  document.getElementById("Title").innerHTML = 'Trending Movies';
+  usage();
 }
-
-// HIGHEST GROSSING MOVIES
-async function getListDataHighestGrossing() {
-    clearTagsList();
-    clearTagsSearch();
-    const response = await fetch(`https://imdb-api.com/en/API/BoxOfficeAllTime/${imdbKEY}`);
-    const data = await response.json();
-
-    var list = document.getElementById("movieList");
-    for (var i = 0; i < data.items.length; i++) {
-      var div = document.createElement("div");
-      div.innerHTML = `<b>${data.items[i].title}</b> (<i>${data.items[i].year}</i>): ${data.items[i].worldwideLifetimeGross}`;
-      list.appendChild(div);
-  } 
-    clearTagsSearch();
-    document.getElementById("Title").innerHTML = 'Highest Grossing Movies of All Time';
-    usage();
-  }
 
 // TOP 250 TV SHOWS
 async function getListDataTop250TV() {
-    clearTagsList();
-    clearTagsSearch();
-    const response = await fetch(`https://imdb-api.com/en/API/Top250TVs/${imdbKEY}`);
-    const data = await response.json();
-    
-    var list = document.getElementById("movieList");
-    for (var i = 0; i < data.items.length; i++) {
-      listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
-      var div = document.createElement("div");
-      div.innerHTML = `${data.items[i].rank}. ${data.items[i].title}<br><a href="${listURL}" target="_blank"><img id="topTV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
-      list.appendChild(div);
-  } 
-    clearTagsSearch();
-    document.getElementById("Title").innerHTML = 'Top 250 TV Shows of All Time';
-    usage();
-  }
+  clearTagsList();
+  clearTagsSearch();
+  const response = await fetch(`https://imdb-api.com/en/API/Top250TVs/${imdbKEY}`);
+  const data = await response.json();
+  var images = '';
+  var list = document.getElementById("movieList1");
+  for (var i = 0; i < data.items.length; i++) {
+    listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
+    images += `<a href="${listURL}" target="_blank"><img id="top250TV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
+} 
+  list.innerHTML = images;
+  clearTagsSearch();
+  document.getElementById("Title").innerHTML = 'Top 250 TV Shows of All Time';
+  usage();
+}
 
 // MOST POPULAR TV SHOWS
 async function getListDataMostPopularTV() {
-    clearTagsList();
-    clearTagsSearch();
-    const response = await fetch(`https://imdb-api.com/en/API/MostPopularTVs/${imdbKEY}`);
-    const data = await response.json();
-    
-    var list = document.getElementById("movieList");
-    for (var i = 0; i < data.items.length; i++) {
-      listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
-      var div = document.createElement("div");
-      div.innerHTML = `${data.items[i].rank}. ${data.items[i].title}<br><a href="${listURL}" target="_blank"><img id="mostPopularTV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
-      list.appendChild(div);
-  } 
-    clearTagsSearch();
-    document.getElementById("Title").innerHTML = 'Most Popular TV Shows';
-    usage();
-  }
+  clearTagsList();
+  clearTagsSearch();
+  const response = await fetch(`https://imdb-api.com/en/API/MostPopularTVs/${imdbKEY}`);
+  const data = await response.json();
+  var list = document.getElementById("movieList1");
+  var images = '';
+  for (var i = 0; i < data.items.length; i++) {
+    listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
+    images += `<a href="${listURL}" target="_blank"><img id="mostPopularTV" class="itemListClass" src="${data.items[i].image}" alt="${data.items[i].title}"/></a>`;
+} 
+  list.innerHTML = images;
+  clearTagsSearch();
+  document.getElementById("Title").innerHTML = 'Trending TV Shows';
+  usage();
+}
+
+window.onload = getListDataMostPopularMovies;
