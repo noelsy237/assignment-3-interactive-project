@@ -1,7 +1,15 @@
 body {
     background-color: rgb(90, 90, 90);
-    color: white;
+    color: rgb(255, 255, 255);
+    
+    background-image: url('wendy3.png'); 
+     /* background-repeat: no-repeat; */
+    background-size: 100% auto;
+    background-attachment: fixed; 
+
   }
+
+ 
 
   #gitHubIcon {
     width: 40px;
@@ -17,19 +25,19 @@ body {
     padding: 10px;
   }
 
-  .list-class {
+  /* .list-class {
     padding: 10px;
-  }
+  } */
 
   .main {
-    max-width: 600px;
+    /* max-width: 600px; */
 	  margin: 0 auto;
     text-align: center;
   }
 
   #imgPoster {
-    height: 456px;
-    width: 300px;
+    height: 433px;
+    width: 285px;
     box-shadow: 5px 5px 5px black;
     transition-duration: 0.2s;
   }
@@ -41,41 +49,136 @@ body {
 
   .itemListClass {
     transition-duration: 0.8s;
-    min-width: 200px;
-    max-width: 300px;
-    height: auto;
+  
+   
     box-shadow: 5px 5px 5px black;
-    margin: 10px 20px 60px 0px;
+
   }
 
   .itemListClass:hover {
     transition-duration: 0.8s;
     box-shadow: 15px 8px 8px black;
-    /* filter: blur(8px);
-    -webkit-filter: blur(8px); */
   }
+ 
 
-  /* .plot {
-    padding-top: 20px;
-    max-width: 300px;
-	  margin: 0 auto;
-    text-align: center;
-  } */
-
-  #movieList1 {
-    margin-left: 50px;
+  #movieList {
+    min-height: 100vh;
   }
 
   #Director {
     padding-top: 20px;
   }
 
-  #Starring {
-    padding-top: 10px;
-    font-weight: 600;
-    text-decoration: underline;
+
+
+  #trailer {
+    width: 400px;
+    height: 250px;
+    transition-duration: 0.2s;
+    box-shadow: 5px 5px 5px black;
   }
 
-  .menu {
-    margin-right: 10px;
+  #trailer:hover {
+    transition-duration: 0.2s;
+    box-shadow: 8px 8px 8px black;
   }
+ 
+
+  .space {
+    height: 50px;
+  }
+ 
+  #Title {
+    text-shadow: 5px 10px 5px black;
+  }
+
+  #submitInput {
+    background-color: #042b69;
+    border-color: #042b69;
+    border-radius: 0;
+  }
+
+  #submitInput:hover {
+    background-color: #064cbd;
+    border-color: #064cbd;
+  }
+
+  #dropdown {
+    background-color: rgb(148, 148, 148);
+  
+  }
+
+  #dropdown:hover {
+    background-color: rgb(148, 148, 148);
+  
+  }
+
+  #dropdown a {
+    color: #042b69;
+  }
+
+  #heading {
+    color: #064cbd;
+  }
+
+  #lists {
+    color: white;
+  }
+
+  #userInput {
+    border-radius: 0;
+  }
+
+.flex {
+  min-height: 60pt;
+  padding-top: 20px;
+}
+
+@keyframes loading {
+  0% {
+    width: 50pt;
+    height: 50pt;
+    margin-top: 0;
+  }
+  25% {
+    height: 4pt;
+    margin-top: 23pt;
+  }
+  50% {
+    width: 4pt;
+  }
+  75% {
+    width: 50pt;
+  }
+  100% {
+    width: 50pt;
+    height: 50pt;
+    margin-top: 0;
+  }
+}
+
+#loader {
+  width: 50pt;
+  height: 50pt;
+  border-radius: 100%;
+  border: #042b69 4pt solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  animation: loading 1s infinite;
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+	background-color: rgb(90, 90, 90);
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #042b69;
+}
