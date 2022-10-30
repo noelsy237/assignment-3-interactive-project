@@ -3,7 +3,7 @@ Hosted online [here](https://assignment3.noelwilliams.au/ "here").
 ## Production Journal
 ## Initialising the project
 Originally the project used the API provided by OMDB which had a daily limit of 1000 API calls. The API had many limitations however and did not have anywhere near the amount of data that IMDB had. IMDB has a very extensive and easy to use API. 
-
+![IMDB API](apis.png "IMDB APIs")
 The image above shows all the different APIs that are available from IMDB, OMDB only has a search function.
 
 ## HTML
