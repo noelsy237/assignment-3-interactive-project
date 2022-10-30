@@ -1,5 +1,5 @@
 # Assignment 3 - Interactive Project
-Hosted online [here](http://https://assignment3.noelwilliams.au/ "here").
+Hosted online [here](https://assignment3.noelwilliams.au/ "here").
 ## Production Journal
 ## Initialising the project
 Originally the project used the API provided by OMDB which had a daily limit of 1000 API calls. The API had many limitations however and did not have anywhere near the amount of data that IMDB had. IMDB has a very extensive and easy to use API. 
@@ -10,7 +10,7 @@ The image above shows all the different APIs that are available from IMDB, OMDB 
 The HTML is very minimal and mostly includes premade bootstrap components. The navbar is a basic bootstrap navbar that includes a dropdown list for the IMDB movie list, and a search bar. Below that is a container that holds all of the content for both the search function and the list function. The search functions content is held in a Bootstrap grid. This content is various empty elements that are appended with JS. The page is finished with a Bootstrap footer containing a Github link.
 
 ## CSS
-The CSS is half Bootstrap and half custom. I tried to use bootstrap where I could, but there a few minor custom changes to sizing, padding and margins. A significant amount of the CSS is for a loading animation which I found [here](http://https://codepen.io/iwotastic/pen/xRZrXX "here").
+The CSS is half Bootstrap and half custom. I tried to use bootstrap where I could, but there a few minor custom changes to sizing, padding and margins. A significant amount of the CSS is for a loading animation which I found [here](https://codepen.io/iwotastic/pen/xRZrXX "here").
 
 ## JS
 #### Search Function
