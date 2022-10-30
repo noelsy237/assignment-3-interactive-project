@@ -1,6 +1,7 @@
 const imdbKEY = 'k_6t5odul7';
 
-const getElementArray = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors", "Suggested", "Embed", "movieList", "loader", "userInput"]
+// GETS ALL HTML ELEMENTS AND ASSIGNS THEM AS A JS VARIABLE
+const getElementArray = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors", "Ratings", "Suggested", "Embed", "movieList", "loader", "userInput", "Similar", "movieCarousel", "similarCaption", "controllerLeft", "controllerRight", "controllerLeft1", "controllerRight1", "controllerLeft2", "controllerRight2"]
 for (let i = 0; i < getElementArray.length; i++) {
   getElementArray[i] = document.getElementById(getElementArray[i]);
 }
@@ -21,7 +22,7 @@ function enterKeyPressed(event) {
 async function dataFetch() {
     loadingText.innerHTML = "Fetching data...";
     loader.style.display = 'block';
-    urlTitle = `https://imdb-api.com/en/API/Title/${imdbKEY}/${data.results[i].id}`;
+    urlTitle = `https://imdb-api.com/en/API/Title/${imdbKEY}/${data.results[i].id}/Ratings,`;
     // FETCH DATA
     const responseTitle = await fetch(urlTitle);
     const dataTitle = await responseTitle.json();
@@ -32,7 +33,20 @@ async function dataFetch() {
     Director.innerHTML = `Directed by ${dataTitle.directors}`;
     Starring.innerHTML = "Starring:";
     Actors.innerHTML = dataTitle.stars;
+    Ratings.innerHTML = `IMDb: ${dataTitle.ratings.imDb}/10<br>TMDB: ${dataTitle.ratings.theMovieDb}/10<br>Rotten Tomatoes: ${dataTitle.ratings.rottenTomatoes}%`;
     Poster.innerHTML = `<a href="https://www.imdb.com/title/${dataTitle.id}/" target="_blank"><img src="${dataTitle.image}" alt="${dataTitle.title}" id="imgPoster"></a>`;
+
+    images = `<div class="carousel-item active"><a href="https://www.imdb.com/title/${dataTitle.similars[0].id}/" target="_blank"><img class="similarPoster mx-auto" src="${dataTitle.similars[0].image}" alt="${dataTitle.similars[0].title}"></a></div>`;
+    for (j = 1; j < dataTitle.similars.length; j++) {
+      images += `<div class="carousel-item"><a href="https://www.imdb.com/title/${dataTitle.similars[j].id}/" target="_blank"><img class="similarPoster mx-auto" src="${dataTitle.similars[j].image}" alt="${dataTitle.similars[j].title}"></a></div>`;
+    }
+    similarCaption.innerHTML = `<i>Similar to ${dataTitle.title}:</i>`;
+    controllerLeft1.style.display = 'initial';
+    controllerRight1.style.display = 'initial';
+    controllerLeft2.style.display = 'initial';
+    controllerRight2.style.display = 'initial';
+    Similar.innerHTML = images;
+
     loadingText.innerHTML = null;
 
     // FETCH YOUTUBE TRAILER
@@ -48,9 +62,9 @@ async function dataFetch() {
     }
 
     loader.style.display = 'none';
+    movieList.style.display = 'none';
     usage();
-  }
-
+}
 
 function noSuggestion() {
   window.i = 0
@@ -65,12 +79,14 @@ function suggestion() {
 
 // SEARCH FUNCTION
 async function button() {
+ 
   clearTagsSearch();
   clearTagsList();
   loadingText.innerHTML = "Processing request...";
   loader.style.display = 'block';
   var input = userInput.value;
   
+  // NESTED IF STATEMENTS TO HANDLE ALL INPUTS/ERRORS
   if (input == "") {
     clearTagsSearch();
     clearTagsList();
@@ -106,7 +122,7 @@ async function button() {
   } else {
     console.log('error');
   }
-}   
+}  
 
 // LOGS THE API USAGE COUNT IN CONSOLE. THIS FUNCTION USES AN EXTRA API CALL
    async function usage() {
@@ -132,7 +148,12 @@ function clearTagsList() {
 
 // CLEARS ALL CONTENT FROM SEARCH FUNCTION
 function clearTagsSearch() {
-  const removeValues = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors", "Suggested", "Embed"];
+  controllerLeft1.style.display = 'none' 
+  controllerRight1.style.display = 'none' 
+  controllerLeft2.style.display = 'none' 
+  controllerRight2.style.display = 'none' 
+  
+  const removeValues = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors",  "Ratings", "Suggested", "Embed", "Similar", "similarCaption"];
     for (let i = 0; i < removeValues.length; i++) {
         document.getElementById(removeValues[i]).innerHTML = null;
   }
@@ -171,6 +192,7 @@ function getListDataInTheatres() {
 
 // DATA FETCH FOR LIST FUNCTIONS
 async function getListData() {
+  movieList.style.display = 'block';
   loader.style.display = 'block';
   clearTagsList();
   clearTagsSearch();
@@ -179,7 +201,7 @@ async function getListData() {
   var row = '<div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 row-cols-sm-3">'
 
   for (let i = 0; i < data.items.length; i++) {
-    posterURL = data.items[i].image.replace(/._(.*).jpg/, '') + '.jpg'
+    posterURL = data.items[i].image.replace(/._(.*).jpg/, '') + '.jpg' //CHANGES THE IMAGE EXTENSION, AS SOMETIMES THE API WOULD RETURN A VERY LOW RES IMAGE
     listURL = `https://www.imdb.com/title/${data.items[i].id}/`;
     row += `<div class="col align-self-center my-2"><a href="${listURL}" target="_blank"><img class="img-fluid itemListClass" src="${posterURL}" alt="${data.items[i].title}"/></a></div>`
   }
@@ -190,4 +212,7 @@ async function getListData() {
   usage();
 }
 
-window.onload = getListDataMostPopularMovies;
+// RANDOM LIST DISPLAYED ON LOAD
+const functionList = [function(){getListDataMostPopularMovies()}, function(){getListDataMostPopularTV()}, function(){getListDataTop250Movies()}, function(){getListDataTop250TV()}, function(){getListDataInTheatres()}]
+const randomFunction = functionList[Math.floor(Math.random() * functionList.length)];
+window.onload = randomFunction;
