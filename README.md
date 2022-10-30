@@ -1,5 +1,5 @@
 # Assignment 3 - Interactive Project
-Hosted online [here](https://assignment3.noelwilliams.au/ "here").
+Hosted online [here](https://assignment3.noelwilliams.au/ "here"). Works best with Chrome.
 ## Production Journal
 ## Initialising the project
 Originally the project used the API provided by OMDB which had a daily limit of 1000 API calls. The API had many limitations however and did not have anywhere near the amount of data that IMDB had. IMDB has a very extensive and easy to use API. 
