@@ -1,4 +1,4 @@
-const imdbKEY = 'k_6t5odul7';
+const imdbKEY = '';
 
 // GETS ALL HTML ELEMENTS AND ASSIGNS THEM AS A JS VARIABLE
 const getElementArray = ["Poster", "Plot", "loadingText", "Title", "Director", "Starring", "Actors", "Ratings", "Suggested", "Embed", "movieList", "loader", "userInput", "Similar", "movieCarousel", "similarCaption", "controllerLeft", "controllerRight", "controllerLeft1", "controllerRight1", "controllerLeft2", "controllerRight2"]
